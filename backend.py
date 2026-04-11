@@ -4,7 +4,14 @@ import requests
 import os
 from groq import Groq
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+api_key = os.getenv("GROQ_API_KEY")
+
+if not api_key:
+    print("❌ GROQ_API_KEY not found")
+else:
+    print("✅ GROQ_API_KEY loaded")
+
+client = Groq(api_key=api_key) if api_key else None
 
 app = FastAPI()
 
@@ -47,18 +54,21 @@ def build_prompt(history, user_text, system_msg):
 # groq CALL
 # -------------------------
 def get_response(prompt):
+    if client is None:
+        return "Error: API key not configured"
+
     try:
         response = client.chat.completions.create(
             model="llama3-8b-8192",
             messages=[
-                {"role": "system", "content": "You are a helpful study assistant. Explain clearly and simply."},
+                {"role": "system", "content": "You are a helpful study assistant."},
                 {"role": "user", "content": prompt}
             ]
         )
         return response.choices[0].message.content
     except Exception as e:
+        print("ERROR:", str(e))
         return f"Error: {str(e)}"
-
 # -------------------------
 # API ROUTE
 # -------------------------
