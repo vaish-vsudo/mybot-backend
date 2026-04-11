@@ -4,7 +4,7 @@ import requests
 import os
 from groq import Groq
 
-api_key = os.getenv("GROQ_API_KEY")
+api_key = os.getenv("GROQ_API_KEY").strip() 
 
 if not api_key:
     print("❌ GROQ_API_KEY not found")
