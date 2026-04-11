@@ -4,13 +4,18 @@ import requests
 import os
 from groq import Groq
 
-api_key = os.getenv("GROQ_API_KEY").strip() 
+api_key = os.getenv("GROQ_API_KEY")
+
+if api_key:
+    api_key = api_key.replace("\n", "").replace("\r", "").strip()
 
 if not api_key:
     print("❌ GROQ_API_KEY not found")
 else:
     print("✅ GROQ_API_KEY loaded")
-
+    
+print("API KEY RAW:", repr(os.getenv("GROQ_API_KEY")))
+print("API KEY CLEAN:", repr(api_key))
 client = Groq(api_key=api_key) if api_key else None
 
 app = FastAPI()
