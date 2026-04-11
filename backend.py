@@ -67,8 +67,11 @@ def get_response(prompt):
         )
         return response.choices[0].message.content
     except Exception as e:
-        print("ERROR:", str(e))
+        import traceback
+        print("FULL ERROR ↓↓↓")
+        traceback.print_exc()
         return f"Error: {str(e)}"
+        
 # -------------------------
 # API ROUTE
 # -------------------------
