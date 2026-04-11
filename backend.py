@@ -53,23 +53,36 @@ def build_prompt(history, user_text, system_msg):
 # -------------------------
 # groq CALL
 # -------------------------
+
+
 def get_response(prompt):
-    if client is None:
+    api_key = os.getenv("GROQ_API_KEY")
+
+    if not api_key:
         return "Error: API key not configured"
 
     try:
-        response = client.chat.completions.create(
-            model="llama3-70b-8192",   
-            messages=[
+        url = "https://api.groq.com/openai/v1/chat/completions"
+
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+
+        data = {
+            "model": "llama3-70b-8192",
+            "messages": [
                 {"role": "user", "content": prompt}
             ]
-        )
+        }
 
-        return response.choices[0].message.content
+        response = requests.post(url, headers=headers, json=data, timeout=20)
+
+        return response.json()["choices"][0]["message"]["content"]
 
     except Exception as e:
         import traceback
-        traceback.print_exc()  
+        traceback.print_exc()
         return f"Error: {repr(e)}"
         
 # -------------------------
