@@ -75,7 +75,7 @@ def get_response(prompt):
         }
 
         data = {
-            "model": "llama3-70b-8192",
+            "model": "llama3-8b-8192",
             "messages": [
                 {"role": "user", "content": prompt}
             ]
@@ -83,7 +83,14 @@ def get_response(prompt):
 
         response = requests.post(url, headers=headers, json=data, timeout=20)
 
-        return response.json()["choices"][0]["message"]["content"]
+        res_json = response.json()
+
+        print("FULL RESPONSE:", res_json)  # 🔥 VERY IMPORTANT
+
+        if "choices" in res_json:
+            return res_json["choices"][0]["message"]["content"]
+        else:
+            return f"Groq Error: {res_json}"
 
     except Exception as e:
         import traceback
