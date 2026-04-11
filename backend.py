@@ -13,7 +13,7 @@ if not api_key:
     print("❌ GROQ_API_KEY not found")
 else:
     print("✅ GROQ_API_KEY loaded")
-    
+
 print("API KEY RAW:", repr(os.getenv("GROQ_API_KEY")))
 print("API KEY CLEAN:", repr(api_key))
 client = Groq(api_key=api_key) if api_key else None
@@ -61,7 +61,7 @@ def build_prompt(history, user_text, system_msg):
 
 
 def get_response(prompt):
-    api_key = os.getenv("GROQ_API_KEY")
+    global api_key 
 
     if not api_key:
         return "Error: API key not configured"
