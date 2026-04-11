@@ -37,7 +37,7 @@ class ChatRequest(BaseModel):
     message: str
     history: list = []
     personality: str = "study"
-    model: str = "llama3-8b-8192"
+    model: str = "llama-3.1-8b-instant"
 
 # -------------------------
 # PROMPT BUILDER
@@ -75,7 +75,7 @@ def get_response(prompt):
         }
 
         data = {
-            "model": "llama3-8b-8192",
+            "model": "llama-3.1-8b-instant",
             "messages": [
                 {"role": "user", "content": prompt}
             ]
