@@ -86,7 +86,14 @@ def get_response(prompt):
         data = {
             "model": "llama-3.1-8b-instant",
             "messages": [
-                {"role": "user", "content": prompt}
+                {
+                    "role": "system",
+                    "content": "You are Vexta, a helpful study assistant. If anyone asks your name, you MUST reply ONLY with 'I am Vexta'. Never say ChatGPT or any other name. Help students with clear explanations, summaries, and quizzes."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
             ]
         }
 

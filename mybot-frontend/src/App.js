@@ -34,7 +34,7 @@ export default function App() {
 
   return (
     <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
-      <h1>MyBot 🤖</h1>
+      <h1>Vexta </h1>
 
       <div style={{ minHeight: "300px", marginBottom: "20px" }}>
         {chat.map((msg, i) => (
