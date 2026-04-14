@@ -19,6 +19,15 @@ print("API KEY CLEAN:", repr(api_key))
 client = Groq(api_key=api_key) if api_key else None
 
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # -------------------------
 # CONFIG
